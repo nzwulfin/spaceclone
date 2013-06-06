@@ -7,8 +7,8 @@ import options
 def run(args):
 
     parser = options.Parser(args)
-    rhn = satellite.Satellite()
     logger = None
+    rhn = None
 
     # First option on command line should be valid module
     if len(args) < 2 or args[1] not in modules.__all__:

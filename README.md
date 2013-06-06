@@ -1,89 +1,133 @@
 spaceclone
 =========
 
-Spaceclone is a software channel cloning tool for RHN Satellite and Spacewalk.
+Spaceclone is a management tool for RHN Satellite channels.  It's feature incomplete and a work in progress.  Use at your own risk!
 
-Spaceclones are copies of a base software channel and it's child channels.  
+Why
+---
 
-For example, one might create clones on a rolling time basis, which allows you to keep a group of systems easily at the same patch level.  When it's time to apply the next period's patches, spaceclone can move a system into another snapshot's software channels.
+Channel cloning has been long used by many RHN Satellite and Spacewalk users to control the patch levels of their systems.  Managing the clones and the systems has been a bit difficult in the past, and spaceclone attemps to make it a bit easier.
 
-Configuration
--------------
-The default configuration file is /etc/spaceclone.conf
+There's two primary workflows spaceclone can be used for:
 
-### General
-Specify the Spacewalk server's hostname, username, and password here.
+    - Create clones on a time basis, perhaps quarterly
 
-## Usage
+    - Create a chain of clones to support a testing -> current -> stable, or development -> staging -> production methodology
 
-### Create a New Snapshot
+# Usage
+
+Run without options to see the usage:
+
+    [stbenjam@atlantis lib]\$ spaceclone
+    Usage: spaceclone <command> <options>
+
+    Commands:
+    create      Creates a new cloneset
+    list        List all clonesets
+    move        Move a system to a cloneset
+    promote     Promotes one snapshot to another
+    show        Show a specific Cloneset
+
+To get help for a command:
+
+    [stbenjam@atlantis lib]\$ spaceclone create --help
+    Usage: clone [options]
+
+    Options:
+       -h, --help            show this help message and exit
+
+    Satellite Options:
+        -s SAT_SERVER, --server=SAT_SERVER
+                            Server Name
+        -u SAT_USERNAME, --username=SAT_USERNAME
+                            Username
+        -p SAT_PASSWORD, --password=SAT_PASSWORD
+                            Password
+
+      Create Options:
+        -o ORIGIN, --origin=ORIGIN
+                            Origin Base Channel
+        -t TARGET, --target=TARGET
+                           Target Cloneset Name
+        -f PREFIX, --prefix=PREFIX
+                            Prefix for Channel Name
 
 
-    # spaceclone create -n "2013 July"
+## Create a New Cloneset
 
-    Creating new 2013 May Snapshot...
-    Creating base channel snapshot-2013-may-rhel-x86_64-server-6... [OK]
-    Creating child channel snapshot-2013-may-rhel-x86_64-server-optional-6... [OK]
-    Snapshot sucessfully created
+### Time-based Snapshot Example
 
 
-You can also use custom names.  The label is all lowercase, joined by "-".
+        [stbenjam@atlantis lib]\$ spaceclone create -s abydos.bitbin.de -u satadmin -p password -o rhel-x86_64-server-6 -t "June 2013" -f "ACME Inc"
 
-    # spaceclone create --name "2013 June Test"
-    Creating new 2013 June Test Snapshot...
-    Creating base channel snapshot-2013-june-test-rhel-x86_64-server-6... [OK]
-    Creating child channel snapshot-2013-june-test-rhel-x86_64-server-optional-6... [OK]
-    Snapshot sucessfully created
+        Creating clone channels:
+            sc-june-2013-rhel-x86_64-server-6...  [ OK ]
+            sc-june-2013-rhel-x86_64-server-optional-6...  [ OK ]
+            sc-june-2013-rhel-x86_64-server-supplementary-6...  [ OK ]
+            sc-june-2013-rhn-tools-rhel-x86_64-server-6...  [ OK ]
+            sc-june-2013-epel-6-x86_64...  [ OK ]
 
-### Manage Snapshots
+### Workflow Example
 
-spaceclone also supports the idea of setting up a channel workflow, such as development -> preprpoduction -> production or testing -> current -> stable.  You can use promote to promote from one channel to another.
+One might also want to have a workflow like development -> staging -> production:
 
-First you need to create the snapshots with a custom naming scheme:
+    spaceclone create -s abydos.bitbin.de -u satadmin -p password -o rhel-x85_64-server-6 -t development -f "ACME Inc"
 
-    # spaceclone create --name development
-    # spaceclone create --name preproduction
-    # spaceclone create --name production
+    spaceclone create -s abydos.bitbin.de -u satadmin -p password -o sc-development-rhel-x86_64-server-6... -t staging -f "ACME Inc"
 
-You can then "promote":
+    spaceclone create -s abydos.bitbin.de -u satadmin -p password -o sc-staging-rhel-x86_64-server-6... -t production -f "ACME Inc"
 
-    # spaceclone promote --source development --target stable
+## List all Clonesets
 
-    Promoting "development" channels to "stable".... [OK]
+    [stbenjam@atlantis lib]\$ spaceclone list -s abydos.bitbin.de -u satadmin -p password
+    +-------------+--------------+-------------------------------------+----------------------+--------------------+
+    | Cloneset    | Created      | Source                              | Base                 | Registered Systems |
+    +-------------+--------------+-------------------------------------+----------------------+--------------------+
+    | development | 06 June 2013 | rhel-x86_64-server-6                | rhel-x86_64-server-6 | 1                  |
+    | production  | 06 June 2013 | sc-staging-rhel-x86_64-server-6     | rhel-x86_64-server-6 | 0                  |
+    | staging     | 06 June 2013 | sc-development-rhel-x86_64-server-6 | rhel-x86_64-server-6 | 0                  |
+    | june-2013   | 06 June 2013 | rhel-x86_64-server-6                | rhel-x86_64-server-6 | 0                  |
+    +-------------+--------------+-------------------------------------+----------------------+--------------------+
 
-### List All Snapshots
+## Showing Cloneset Details
 
-    # spaceclone list
+    [stbenjam@atlantis lib]\$ spaceclone show -s abydos.bitbin.de -u satadmin -p password -c staging
+    +-----------------------------------------------+--------+---------------------------------------------------+------------------------------------+
+    | Channel                                       | Type   | Source                                            | Base                               |
+    +-----------------------------------------------+--------+---------------------------------------------------+------------------------------------+
+    | sc-staging-rhel-x86_64-server-6               | parent | sc-development-rhel-x86_64-server-6               | rhel-x86_64-server-6               |
+    | sc-staging-rhel-x86_64-server-optional-6      | child  | sc-development-rhel-x86_64-server-optional-6      | rhel-x86_64-server-optional-6      |
+    | sc-staging-rhel-x86_64-server-supplementary-6 | child  | sc-development-rhel-x86_64-server-supplementary-6 | rhel-x86_64-server-supplementary-6 |
+    | sc-staging-rhn-tools-rhel-x86_64-server-6     | child  | sc-development-rhn-tools-rhel-x86_64-server-6     | rhn-tools-rhel-x86_64-server-6     |
+    | sc-staging-epel-6-x86_64                      | child  | sc-development-epel-6-x86_64                      | epel-6-x86_64                      |
+    +-----------------------------------------------+--------+---------------------------------------------------+------------------------------------+
 
-    |Snapshot Label          |Date Created| Systems            |
-    |------------------------|------------|--------------------|
-    | snapshot-2013-april    | 2013-04-04 | 1,392              |
-    | snapshot-2013-may      | 2013-05-04 | 385                |
+## Moving Systems Between Clones
 
-### Moving Systems Between Snapshot
 
-    # spaceclone move --server webserver01.example.com --target-snapshot=snapshot-2013-may
+    [stbenjam@atlantis lib]\$ spaceclone move -s abydos.bitbin.de -u satadmin -p password -i 1000010000 -c staging
+    Moving system...
+    +---------------------------------------------------+-----------------------------------------------+
+    | Before                                            | After                                         |
+    +---------------------------------------------------+-----------------------------------------------+
+    | sc-development-rhel-x86_64-server-6               | sc-staging-rhel-x86_64-server-6               |
+    | sc-development-rhel-x86_64-server-optional-6      | sc-staging-rhel-x86_64-server-optional-6      |
+    | sc-development-epel-6-x86_64                      | sc-staging-epel-6-x86_64                      |
+    | sc-development-rhel-x86_64-server-supplementary-6 | sc-staging-rhel-x86_64-server-supplementary-6 |
+    | sc-development-rhn-tools-rhel-x86_64-server-6     | sc-staging-rhn-tools-rhel-x86_64-server-6     |
+    +---------------------------------------------------+-----------------------------------------------+
 
-    Moving server "webserver01.example.com" to target snapshot-2013-may.... [OK]
+    Confirm changes? [Y/n] Y
 
-### Delete Snapshots
+## Delete Clonesets
 
-    # spaceclone delete --target-snapshot=snapshot-2013-april
+Unimplemented
 
-    Deleting snapshot-2013-april... [OK]
+## Update Clone Channels (Promotion)
 
-    # spaceclone delete --older-than 365
+Unimplemented
 
-    No snapshots older than 365 days found.
 
-### Showing Snapshot Details
-
-    # spaceclone show
-
-    snapshot-2013-may-rhel-x86_64-server-6
-     |.. snapshot-2013-may-rhel-x86_64-server-optional-6
-     |.. snapshot-2013-may-rhel-x86_64-server-supplmentary-6
-     |.. snapshot-2013-may-custom-channel-6
 
 ## License
 

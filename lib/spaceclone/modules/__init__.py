@@ -2,7 +2,6 @@
 
 __all__ = [
                            "create", 
-                           "delete",
                            "list",
                            "move",
                            "promote",

@@ -1,22 +1,25 @@
 __module_name__ = "create"
-__module_desc__ = "Creates a new snapshot"
+__module_desc__ = "Creates a new cloneset"
 
 import sys
 from optparse import OptionGroup
+
+from ..satellite import Satellite, Cloneset, Clone
 
 def run(parser, rhn, logger):
 
     parser.add_satellite_options()
 
     group = OptionGroup(parser.parser, "Create Options")
-    group.add_option("-o", "--original", action="store", type="string", dest="original", help="Original Base Channel")
-    group.add_option("-n", "--name", action="store", type="string", dest="name", help="Snapshot Name")
+    group.add_option("-o", "--origin", action="store", type="string", dest="origin", help="Origin Base Channel")
+    group.add_option("-t", "--target", action="store", type="string", dest="target", help="Target Cloneset Name")
+    group.add_option("-f", "--prefix", action="store", type="string", dest="prefix", default="Spaceclone", help="Prefix for Channel Name")
     parser.add_group(group)
     
-    parser.set_required(["name", "original"])
+    parser.set_required(["sat_server", "sat_username", "sat_password", "target", "origin"])
 
     (options, args) = parser.parse()
 
-    rhn.login(options.sat_server, options.sat_username, options.sat_password)
-
-    print rhn.new_snapshot(options.original, options.name)
+    rhn = Satellite(options.sat_server, options.sat_username, options.sat_password)
+    cloneset = Cloneset(rhn, prefix=options.prefix, origin=options.origin, target=options.target)
+    cloneset.create()

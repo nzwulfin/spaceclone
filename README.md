@@ -1,17 +1,19 @@
 # [![Spaceclone](images/spaceclone.png)](http://openclipart.org/detail/94573/fireball-by-mazeo)  Spaceclone
 
-Spaceclone is a management tool for RHN Satellite channels.  It's feature incomplete and a work in progress.  Use at your own risk!
+Spaceclone is a management tool for RHN Satellite channels.  *It's feature incomplete and a work in progress.  Use at your own risk!*
 
 Why
 ---
 
-Channel cloning has been long used by many RHN Satellite and Spacewalk users to control the patch levels of their systems.  Managing the clones and the systems has been a bit difficult in the past, and spaceclone attemps to make it a bit easier.
+Channel cloning has been long used by many RHN Satellite and Spacewalk users to control the patch levels of their systems.  Managing the clones and the systems has been a bit difficult in the past, and spaceclone attemps to make it a bit easier by managing a set of clones in a "cloneset."
+
+A cloneset is a tagged clone of a base channel and all of it's children.
 
 There's two primary workflows spaceclone can be used for:
 
- - Create clones on a time basis, perhaps quarterly
+ - Create clonesets on a time basis, perhaps quarterly
 
- - Create a chain of clones to support a testing -> current -> stable, or development -> staging -> production methodology
+ - Create a chain of clonesets to support a testing -> current -> stable, or development -> staging -> production methodology
 
 # Usage
 
@@ -76,11 +78,13 @@ One might also want to have a workflow like development -> staging -> production
 
     spaceclone create -s abydos.bitbin.de -u satadmin -p password -o sc-staging-rhel-x86_64-server-6... -t production -f "ACME Inc"
 
+Each stage uses the previous as the origin -- which will be used later with the "promote" command to update the cloneset.
+
 ## List all Clonesets
 
     [stbenjam@atlantis lib]\$ spaceclone list -s abydos.bitbin.de -u satadmin -p password
     +-------------+--------------+-------------------------------------+----------------------+--------------------+
-    | Cloneset    | Created      | Source                              | Base                 | Registered Systems |
+    | Cloneset    | Created      | Origin                              | Base                 | Registered Systems |
     +-------------+--------------+-------------------------------------+----------------------+--------------------+
     | development | 06 June 2013 | rhel-x86_64-server-6                | rhel-x86_64-server-6 | 1                  |
     | production  | 06 June 2013 | sc-staging-rhel-x86_64-server-6     | rhel-x86_64-server-6 | 0                  |
@@ -92,7 +96,7 @@ One might also want to have a workflow like development -> staging -> production
 
     [stbenjam@atlantis lib]\$ spaceclone show -s abydos.bitbin.de -u satadmin -p password -c staging
     +-----------------------------------------------+--------+---------------------------------------------------+------------------------------------+
-    | Channel                                       | Type   | Source                                            | Base                               |
+    | Channel                                       | Type   | Origin                                            | Base                               |
     +-----------------------------------------------+--------+---------------------------------------------------+------------------------------------+
     | sc-staging-rhel-x86_64-server-6               | parent | sc-development-rhel-x86_64-server-6               | rhel-x86_64-server-6               |
     | sc-staging-rhel-x86_64-server-optional-6      | child  | sc-development-rhel-x86_64-server-optional-6      | rhel-x86_64-server-optional-6      |

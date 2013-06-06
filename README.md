@@ -128,10 +128,31 @@ Each stage uses the previous as the origin -- which will be used later with the 
 
 Unimplemented
 
-## Update Clone Channels (Promotion)
 
-Unimplemented
+## Promotion
 
+Spaceclone allows promotion, for example from the "live" channels to "development" or from "current" to "stable":
+
+        spaceclone promote -s abydos.bitbin.de -u satadmin -p password -c development
+
+        The following target channels will be updated with the content in the origin channel:
+
+        +------------------------------------+-----+---------------------------------------------------+
+        | Origin                             |     | Target                                            |
+        +------------------------------------+-----+---------------------------------------------------+
+        | rhel-x86_64-server-6               | --> | sc-development-rhel-x86_64-server-6               |
+        | rhel-x86_64-server-supplementary-6 | --> | sc-development-rhel-x86_64-server-supplementary-6 |
+        | rhn-tools-rhel-x86_64-server-6     | --> | sc-development-rhn-tools-rhel-x86_64-server-6     |
+        | rhel-x86_64-server-optional-6      | --> | sc-development-rhel-x86_64-server-optional-6      |
+        | epel-6-x86_64                      | --> | sc-development-epel-6-x86_64                      |
+        +------------------------------------+-----+---------------------------------------------------+
+
+        [stbenjam@atlantis lib]\$ Confirm? [Y/n] Y
+        Merging rhel-x86_64-server-optional-6 to sc-development-rhel-x86_64-server-optional-6... [ OK ]
+        Merging epel-6-x86_64 to sc-development-epel-6-x86_64... [ OK ]
+        Merging rhel-x86_64-server-supplementary-6 to sc-development-rhel-x86_64-server-supplementary-6... [ OK ]
+        Merging rhel-x86_64-server-6 to sc-development-rhel-x86_64-server-6... [ OK ]
+        Merging rhn-tools-rhel-x86_64-server-6 to sc-development-rhn-tools-rhel-x86_64-server-6... [ OK ]
 
 
 ## License

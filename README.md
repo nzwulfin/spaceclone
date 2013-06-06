@@ -17,7 +17,13 @@ There's two primary workflows spaceclone can be used for:
 
  - Create a chain of clonesets to support a testing -> current -> stable, or development -> staging -> production methodology
 
-# Usage
+Build Instructions
+------------------
+
+If you're using mock, you can use the handy build.sh script included, otherwise use rpmbuild on the spec file, make sure to tar the src directory as spaceclone.tar.gz and place in SOURCES directory.
+
+Usage
+-----
 
 Run without options to see the usage:
 

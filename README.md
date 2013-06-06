@@ -10,9 +10,9 @@ Channel cloning has been long used by many RHN Satellite and Spacewalk users to 
 
 There's two primary workflows spaceclone can be used for:
 
-    - Create clones on a time basis, perhaps quarterly
+ - Create clones on a time basis, perhaps quarterly
 
-    - Create a chain of clones to support a testing -> current -> stable, or development -> staging -> production methodology
+ - Create a chain of clones to support a testing -> current -> stable, or development -> staging -> production methodology
 
 # Usage
 

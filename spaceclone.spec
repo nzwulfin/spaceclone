@@ -26,7 +26,7 @@ test "x$RPM_BUILD_ROOT" != "x" && rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install --optimize=1 --root=$RPM_BUILD_ROOT $PREFIX
 mkdir -p ${RPM_BUILD_ROOT}/usr/bin
 mkdir -p ${RPM_BUILD_ROOT}/etc
-install -m 0755 spaceclone ${RPM_BUILD_ROOT}/usr/bin
+install -m 0755 bin/spaceclone ${RPM_BUILD_ROOT}/usr/bin
 
 %files
 %defattr(-,root,root,-)

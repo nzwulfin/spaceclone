@@ -17,7 +17,7 @@ def run(parser, rhn, logger):
 
     rhn = Satellite(options.sat_server, options.sat_username, options.sat_password)
 
-    chanList = PrettyTable(["Cloneset", "Created", "Source", "Base", "Registered Systems"])
+    chanList = PrettyTable(["Cloneset", "Created", "Origin", "Base", "Registered Systems"])
     chanList.align = "l"
     for label, cloneset in rhn.get_clones().iteritems():
         chanList.add_row(["-".join(cloneset.base.cloneset.lower().split(" ")), cloneset.base.created.strftime("%d %B %Y"), cloneset.base.source, cloneset.base.baselabel, rhn.channel_info(cloneset.base.label)["systems"]])

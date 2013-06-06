@@ -1,4 +1,4 @@
-__module_name__ = "Promote"
+__module_name__ = "promote"
 __module_desc__ = "Promotes a cloneset to the same version as it's origin"
 
 import sys

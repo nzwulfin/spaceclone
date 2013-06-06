@@ -1,5 +1,4 @@
-spaceclone
-=========
+# ![Spaceclone](https://raw.github.com/stbenjam/spaceclone/master/images/spaceclone.png)  Spaceclone
 
 Spaceclone is a management tool for RHN Satellite channels.  It's feature incomplete and a work in progress.  Use at your own risk!
 

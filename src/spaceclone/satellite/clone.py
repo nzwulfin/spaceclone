@@ -46,7 +46,7 @@ class Clone:
     @property
     def pickle(self):
         base64pickle = "$DO NOT REMOVE$sc$%s$" % base64.b64encode(pickle.dumps(self))
-        return re.sub("(.{70})", "\\1\n", base64pickle, 0, re.DOTALL) + "\n"
+        return re.sub("(.{70})", "\\1\n", base64pickle, 0) + "\n"
 
     def create(self, rhn):
         self.chanid = rhn.sat.channel.software.clone(rhn.key, self.source, self.definition, False)

@@ -64,6 +64,10 @@ To get help for a command:
 
 ## Create a New Cloneset
 
+To create a new cloneset, you'll need the origin channel (maybe the live base channel that comes from RH), and the "target" cloneset name.  You can use spaces and caps but no punctuation.  The cloneset channel labels will be this lowercase and joined by "-."   So June 2013 becomes june-2013.
+
+The prefix ("-f") is purely for astethics in the channel name if you have some standard like prefixing custom channels with your company name, for example.
+
 ### Time-based Snapshot Example
 
 

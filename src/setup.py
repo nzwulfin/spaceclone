@@ -8,5 +8,5 @@ setup(name='spaceclone',
       author='Stephen Benjamin',
       author_email='stephen@bitbin.de',
       url='https://github.com/stbenjam/spaceclone',
-      packages=['spaceclone'],
+      packages=['spaceclone','spaceclone.modules','spaceclone.satellite'],
      )

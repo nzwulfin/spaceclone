@@ -2,16 +2,18 @@
 
 Spaceclone is a management tool for RHN Satellite channels.  *It's feature incomplete and a work in progress.  Use at your own risk!*
 
-Why
+Why?
 ---
 
-Channel cloning has been long used by many RHN Satellite and Spacewalk users to control the patch levels of their systems.  Managing the clones and the systems has been a bit difficult in the past, and spaceclone attemps to make it a bit easier by managing a set of clones in a "cloneset."
+Channel cloning has been long used by many RHN Satellite and Spacewalk users to control the patch levels of their systems.  In the wild, there are hundreds of scripts written by end users, but of course this is the open source world, so why not another?
 
-A cloneset is a tagged clone of a base channel and all of it's children.
+Managing the clones and the systems has been a bit difficult in the past, and spaceclone attemps to make it a bit easier by managing a set of clones in a "cloneset." A cloneset is a tagged clone of a base channel and all of it's children.
+
+Most of the previous efforts are a single script that implements a specific methodology and hardcoded names.  Spaceclone tries to take a more generic approach.  Most also leave out the ability to move a system seemlessly.  While the GUI provides some guessing around the proper child channels when you switch base channels, it's not perfect. 
 
 There's two primary workflows spaceclone can be used for:
 
- - Create clonesets on a time basis, perhaps quarterly
+ - Create clonesets on a time basis, like quarterly
 
  - Create a chain of clonesets to support a testing -> current -> stable, or development -> staging -> production methodology
 

@@ -3,6 +3,7 @@ import pickle
 import base64
 import datetime
 
+
 class Clone:
 
     def __init__(self, **kwargs):
@@ -28,15 +29,14 @@ class Clone:
 
     @property
     def label(self):
-        return ("sc" + "-" + "-".join(self.cloneset.split(" ")) + "-" + self.baselabel).lower()
+        return ("sc" + "-" + "-".join(self.cloneset.split(" ")) +
+                "-" + self.baselabel).lower()
 
     @property
     def definition(self):
-        definition =  {
-                        "name":      self.name,
+        definition =  { "name":      self.name,
                         "label":     self.label,
-                        "summary":   self.summary,
-                      }
+                        "summary":   self.summary }
 
         if self.parent:
             definition["parent_label"] = self.parent

@@ -20,6 +20,9 @@ class Satellite:
     def key(self):
         return self._key
 
+    def get_systems(self, label):
+        return self.sat.channel.software.listSubscribedSystems(self.key, label)
+
     def get_channels(self):
         if self._channels == {}:
             for channel in self.sat.channel.listAllChannels(self.key):

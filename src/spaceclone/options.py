@@ -5,7 +5,9 @@ class Parser:
 
         def __init__(self, args):
             usage = "usage: %prog [options]"
-        
+	    if len(args) > 1:
+		usage = "usage: %prog " + args[1] + " [options]"
+
             self.args = args
             self.parser = OptionParser(usage=usage)
             self.required = None

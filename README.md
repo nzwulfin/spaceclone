@@ -34,6 +34,7 @@ Run without options to see the usage:
     create      Creates a new cloneset
     list        List all clonesets
     move        Move a system to a cloneset
+    report      Provides a report about a cloneset     
     promote     Promotes one snapshot to another
     show        Show a specific Cloneset
 
@@ -116,6 +117,12 @@ Each stage uses the previous as the origin -- which will be used later with the 
     | sc-staging-rhn-tools-rhel-x86_64-server-6     | child  | sc-development-rhn-tools-rhel-x86_64-server-6     | rhn-tools-rhel-x86_64-server-6     |
     | sc-staging-epel-6-x86_64                      | child  | sc-development-epel-6-x86_64                      | epel-6-x86_64                      |
     +-----------------------------------------------+--------+---------------------------------------------------+------------------------------------+
+
+## Reporting on Cloneset
+
+    [stbenjam@atlantis lib]\$ spaceclone report -s abydos.bitbin.de -u satadmin -p password -c staging
+    Systems registered to staging:
+        daedalus.bitbin.de
 
 ## Moving Systems Between Clones
 

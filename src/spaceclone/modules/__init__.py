@@ -5,5 +5,6 @@ __all__ = [
                            "list",
                            "move",
                            "promote",
+                           "report",
                            "show"
           ]

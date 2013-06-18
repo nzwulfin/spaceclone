@@ -21,4 +21,5 @@ def run(parser, rhn, logger):
     rhn = Satellite(options.sat_server, options.sat_username, options.sat_password)
 
     for system in rhn.get_systems(rhn.cloneset_info(options.cloneset).base.label):
-        print system["name"]
+        print "Systems registered to " + options.cloneset + ":"
+        print "\t" + system["name"]

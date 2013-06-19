@@ -3,6 +3,7 @@
 __all__ = [
                            "create", 
                            "list",
+                           "delete",
                            "move",
                            "promote",
                            "report",

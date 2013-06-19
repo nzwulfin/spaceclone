@@ -54,7 +54,7 @@ class Clone:
         return self.chanid
 
     def delete(self, satellite):
-        satellite.sat.channel.redhat.delete(satellite.key, self.baselabel)
+        satellite.sat.channel.software.delete(satellite.key, self.label)
 
     def promote(self, satellite):
         pass

@@ -1,4 +1,5 @@
 import sys
+from getpass import getpass
 from optparse import OptionParser, OptionGroup
 
 class Parser:
@@ -6,8 +7,9 @@ class Parser:
         def __init__(self, args):
             usage = "usage: %prog [options]"
 	    if len(args) > 1:
-		usage = "usage: %prog " + args[1] + " [options]"
+            	usage = "usage: %prog " + args[1] + " [options]"
 
+        
             self.args = args
             self.parser = OptionParser(usage=usage)
             self.required = None
@@ -30,16 +32,27 @@ class Parser:
         def parse(self):
             (options, args) = self.parser.parse_args(self.args)
             if self.required:
-                missing = []
                 for requirement in self.required:
-                    if not options.__dict__[requirement]:
-                        missing.append(requirement)
-                if missing != []:
-                    self.parser.print_help()
-                    print ""
-                    print "** Missing Required Options: " + str(missing)
-                    sys.exit()
+                    if options.__dict__[requirement]:
+			print self.required.index(requirement)
+			self.required.pop(self.required.index(requirement))
+                if self.required:
+		    for dest in self.required:
+			opt = self.get_option(dest)
+			if "password" in opt.help.lower():
+				answer = getpass(opt.help + " required:")
+			else:
+				answer = raw_input(opt.help + " required:")
+			if not answer:
+			    print "Required options can not be blank"
+			    sys.exit()
+			else:
+			    options.__dict__[dest] = answer
 
             return (options, args)
                  
-
+	def get_option(self, destination):
+       	    for group in self.parser.option_groups:
+                for option in group.option_list:
+                    if destination == option.dest:
+                        return option

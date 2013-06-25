@@ -64,13 +64,13 @@ def move(rhn, systemid, cloneset):
     target = {}
 
     cloneset_label= None
-    
+
     # Get basenames for system channels
     for k, cs in rhn.get_clones().iteritems():
         if cs.base.label == baselabel:
             baselabel = cs.base.baselabel
             cloneset_label = cs.base.cloneset_label
-            
+
     table = PrettyTable(["Before", "After"])
     table.align = "l"
     subscribeTo = []
@@ -79,7 +79,7 @@ def move(rhn, systemid, cloneset):
         for child in currentCloneSet.children:
             if child.label in children:
                 subscribeTo.append(child.baselabel)
-                original[child.baselabel] = child.label  
+                original[child.baselabel] = child.label
     else:
         subscribeTo = children
         for child in subscribeTo:
@@ -91,8 +91,8 @@ def move(rhn, systemid, cloneset):
     for child in target_cloneset.children:
         if child.baselabel in subscribeTo:
             target_subscribe.append(child.label)
-            target[child.baselabel] = child.label   
- 
+            target[child.baselabel] = child.label
+
     table.add_row([original_base, target_cloneset.base.label])
     for k, v in original.iteritems():
         try:
@@ -102,6 +102,6 @@ def move(rhn, systemid, cloneset):
 
     print table
     print ""
-   
+
     rhn.set_base_channel(systemid, target_cloneset.base.label)
     rhn.set_child_channels(systemid, target_subscribe)

@@ -38,7 +38,7 @@ class Satellite:
             for channel in self.get_channels():
                 desc = re.sub("\n", "", self.channel_info(channel)["description"])
                 if re.match(".*\$sc\$.*\$.*", desc):
-                   clones.append(pickle.loads(base64.b64decode(re.search("\$sc\$(.*)\$", desc).group(1))))
+                    clones.append(pickle.loads(base64.b64decode(re.search("\$sc\$(.*)\$", desc).group(1))))
 
             for clone in clones:
                 if clone.parent == None:

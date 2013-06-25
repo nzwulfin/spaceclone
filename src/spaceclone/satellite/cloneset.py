@@ -31,7 +31,7 @@ class Cloneset:
             basename = self.rhn.channel_info(origin)["name"]
             baselabel = origin
 
-        clone = { 
+        clone = {
                   "source": origin,
                   "prefix": prefix,
                   "cloneset": target,
@@ -41,7 +41,7 @@ class Cloneset:
 
         if parent:
             clone["parent"] = parent
-           
+
         return Clone(**clone)
 
     def add(self, child):

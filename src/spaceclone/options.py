@@ -22,7 +22,7 @@ class Parser:
 
     def add_satellite_options(self):
         satgroup = OptionGroup(self.parser, "Satellite Options")
-        
+
         satgroup.add_option("-s", "--server", action="store", type="string", dest="sat_server", help="Server Name")
         satgroup.add_option("-u", "--username", action="store", type="string", dest="sat_username", help="Username")
         satgroup.add_option("-p", "--password", action="store", type="string", dest="sat_password", help="Password")
@@ -54,7 +54,7 @@ class Parser:
                         options.__dict__[dest] = answer
 
         return (options, args)
-             
+
     def get_option(self, destination):
         for group in self.parser.option_groups:
             for option in group.option_list:

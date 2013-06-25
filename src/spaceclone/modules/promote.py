@@ -13,7 +13,7 @@ def run(parser, rhn, logger):
     group = OptionGroup(parser.parser, "Promote Options")
     group.add_option("-c", "--cloneset", action="store", type="string", dest="cloneset", help="Cloneset")
     parser.add_group(group)
-    
+
     parser.set_required(["sat_server", "sat_username", "sat_password", "cloneset"])
 
     (options, args) = parser.parse()
@@ -24,10 +24,10 @@ def run(parser, rhn, logger):
 
     print "\nThe following target channels will be updated with the content in the origin channel:\n"
 
-    table = PrettyTable(["Origin", "", "Target"]) 
+    table = PrettyTable(["Origin", "", "Target"])
 
     table.align = "l"
-    
+
     channels = {}
 
     for clone in [cloneset.base] + cloneset.children:
@@ -41,7 +41,7 @@ def run(parser, rhn, logger):
     if yesno.rstrip() != "Y":
         print "Aborted."
         sys.exit()
-    
+
     for target, origin in channels.iteritems():
         sys.stdout.write("Merging %s to %s... " % (origin, target))
         sys.stdout.flush()
@@ -50,4 +50,3 @@ def run(parser, rhn, logger):
         sys.stdout.flush()
 
     print ""
-

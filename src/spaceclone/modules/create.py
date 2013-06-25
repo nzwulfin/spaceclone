@@ -15,7 +15,7 @@ def run(parser, rhn, logger):
     group.add_option("-t", "--target", action="store", type="string", dest="target", help="Target Cloneset Name")
     group.add_option("-f", "--prefix", action="store", type="string", dest="prefix", default="Spaceclone", help="Prefix for Channel Name")
     parser.add_group(group)
-    
+
     parser.set_required(["sat_server", "sat_username", "sat_password", "target", "origin"])
 
     (options, args) = parser.parse()

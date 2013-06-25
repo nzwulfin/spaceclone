@@ -13,7 +13,7 @@ def run(parser, rhn, logger):
     group = OptionGroup(parser.parser, "Report Options")
     group.add_option("-c", "--cloneset", action="store", type="string", dest="cloneset", help="Cloneset")
     parser.add_group(group)
-    
+
     parser.set_required(["sat_server", "sat_username", "sat_password", "cloneset" ])
 
     (options, args) = parser.parse()

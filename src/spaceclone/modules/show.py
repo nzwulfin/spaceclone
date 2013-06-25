@@ -17,7 +17,7 @@ def run(parser, rhn, logger):
         pass
 
     parser.set_required(["sat_server", "sat_username", "sat_password", "cloneset"])
-    
+
 
     try:
         group = OptionGroup(parser.parser, "Show Options")
@@ -45,4 +45,4 @@ def run(parser, rhn, logger):
     for child in cloneset.children:
         chanShow.add_row([child.label, "child", child.source, child.baselabel])
 
-    print chanShow 
+    print chanShow

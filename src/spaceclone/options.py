@@ -35,12 +35,13 @@ class Parser:
 
         if self.required:
 
+            missing = []
             for requirement in self.required:
-                if options.__dict__[requirement]:
-                    self.required.pop(self.required.index(requirement))
+                if not options.__dict__[requirement]:
+                    missing.append(requirement)
 
-            if self.required:
-                for dest in self.required:
+            if missing:
+                for dest in missing:
                     opt = self.get_option(dest)
 
                     if "password" in opt.help.lower():

@@ -2,6 +2,7 @@ import sys
 from getpass import getpass
 from optparse import OptionParser, OptionGroup
 
+
 class Parser:
 
     def __init__(self, args):

@@ -4,6 +4,7 @@ import pickle
 import xmlrpclib
 from cloneset import Cloneset
 
+
 class Satellite:
 
     def __init__(self, server, username, password, verbose=0):
@@ -41,12 +42,12 @@ class Satellite:
                     clones.append(pickle.loads(base64.b64decode(re.search("\$sc\$(.*)\$", desc).group(1))))
 
             for clone in clones:
-                if clone.parent == None:
+                if clone.parent is None:
                     self._clonesets[clone.cloneset_label] = Cloneset(self)
                     self._clonesets[clone.cloneset_label].base = clone
 
             for clone in clones:
-                if clone.parent != None:
+                if clone.parent is not None:
                     self._clonesets[clone.cloneset_label].add(clone)
 
         return self._clonesets

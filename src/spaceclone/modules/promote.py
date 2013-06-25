@@ -6,6 +6,7 @@ from optparse import OptionGroup
 from prettytable import PrettyTable
 from ..satellite import Satellite, Cloneset, Clone
 
+
 def run(parser, rhn, logger):
 
     parser.add_satellite_options()
@@ -31,7 +32,7 @@ def run(parser, rhn, logger):
     channels = {}
 
     for clone in [cloneset.base] + cloneset.children:
-        table.add_row([clone.source, "-->",  clone.label])
+        table.add_row([clone.source, "-->", clone.label])
         channels[clone.label] = clone.source
 
     print table

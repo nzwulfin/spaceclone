@@ -3,8 +3,8 @@ __module_desc__ = "Provides a report about a cloneset"
 
 import sys
 from optparse import OptionGroup
-
 from ..satellite import Satellite, Cloneset, Clone
+
 
 def run(parser, rhn, logger):
 
@@ -14,7 +14,7 @@ def run(parser, rhn, logger):
     group.add_option("-c", "--cloneset", action="store", type="string", dest="cloneset", help="Cloneset")
     parser.add_group(group)
 
-    parser.set_required(["sat_server", "sat_username", "sat_password", "cloneset" ])
+    parser.set_required(["sat_server", "sat_username", "sat_password", "cloneset"])
 
     (options, args) = parser.parse()
 

@@ -4,6 +4,7 @@ import pickle
 import sys
 from clone import Clone
 
+
 class Cloneset:
     """
     A collection of Clones
@@ -31,13 +32,11 @@ class Cloneset:
             basename = self.rhn.channel_info(origin)["name"]
             baselabel = origin
 
-        clone = {
-                  "source": origin,
-                  "prefix": prefix,
-                  "cloneset": target,
-                  "baselabel": baselabel,
-                  "basename": basename,
-                 }
+        clone = {"source": origin,
+                 "prefix": prefix,
+                 "cloneset": target,
+                 "baselabel": baselabel,
+                 "basename": basename}
 
         if parent:
             clone["parent"] = parent

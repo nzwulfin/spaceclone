@@ -34,9 +34,9 @@ class Clone:
 
     @property
     def definition(self):
-        definition =  { "name":      self.name,
-                        "label":     self.label,
-                        "summary":   self.summary }
+        definition = {"name": self.name,
+                      "label": self.label,
+                      "summary": self.summary}
 
         if self.parent:
             definition["parent_label"] = self.parent
@@ -50,7 +50,7 @@ class Clone:
 
     def create(self, rhn):
         self.chanid = rhn.sat.channel.software.clone(rhn.key, self.source, self.definition, False)
-        rhn.sat.channel.software.setDetails(rhn.key, self.chanid, { "description": self.pickle })
+        rhn.sat.channel.software.setDetails(rhn.key, self.chanid, {"description": self.pickle})
         return self.chanid
 
     def delete(self, satellite):
@@ -65,5 +65,5 @@ if __name__ == "__main__":
     clone.prefix = "Spaceclone"
     clone.cloneset = "June 2013"
     clone.basename = "Red Hat Enterprise Linux Server (v. 6 for 64-bit x86_64)"
-    clone.baselabel="rhel-x86_64-serverRed Hat Enterprise Linux Server (v. 6 for 64-bit x86_64)"
+    clone.baselabel = "rhel-x86_64-serverRed Hat Enterprise Linux Server (v. 6 for 64-bit x86_64)"
     print clone.pickle

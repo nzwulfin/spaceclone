@@ -5,8 +5,8 @@ import sys
 from optparse import OptionGroup
 from optparse import OptionConflictError
 from prettytable import PrettyTable
-
 from ..satellite import Satellite, Cloneset, Clone
+
 
 def run(parser, rhn, logger):
 
@@ -53,6 +53,7 @@ def run(parser, rhn, logger):
             print "Moving " + server[1] + "..."
             move(rhn, server[0], options.cloneset)
 
+
 def move(rhn, systemid, cloneset):
     # find our current cloneset
     baselabel = rhn.get_base_channel(systemid)
@@ -63,7 +64,7 @@ def move(rhn, systemid, cloneset):
     original = {}
     target = {}
 
-    cloneset_label= None
+    cloneset_label = None
 
     # Get basenames for system channels
     for k, cs in rhn.get_clones().iteritems():
@@ -74,7 +75,7 @@ def move(rhn, systemid, cloneset):
     table = PrettyTable(["Before", "After"])
     table.align = "l"
     subscribeTo = []
-    if cloneset_label != None:
+    if cloneset_label is not None:
         currentCloneSet = rhn.cloneset_info(cloneset_label)
         for child in currentCloneSet.children:
             if child.label in children:

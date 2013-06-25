@@ -7,6 +7,7 @@ from prettytable import PrettyTable
 import show
 from ..satellite import Satellite, Cloneset, Clone
 
+
 def run(parser, rhn, logger):
 
     parser.add_satellite_options()

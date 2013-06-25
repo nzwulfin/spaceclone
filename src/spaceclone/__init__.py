@@ -1,3 +1,3 @@
 import modules
 
-__all__ = [ "usage", "run", "satellite", "optparser" ]
+__all__ = ["usage", "run", "satellite", "optparser"]

@@ -3,8 +3,8 @@ __module_desc__ = "Creates a new cloneset"
 
 import sys
 from optparse import OptionGroup
-
 from ..satellite import Satellite, Cloneset, Clone
+
 
 def run(parser, rhn, logger):
 

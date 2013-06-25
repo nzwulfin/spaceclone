@@ -5,8 +5,8 @@ import sys
 from optparse import OptionGroup
 from optparse import OptionConflictError
 from prettytable import PrettyTable
-
 from ..satellite import Satellite, Cloneset, Clone
+
 
 def run(parser, rhn, logger):
 
@@ -17,7 +17,6 @@ def run(parser, rhn, logger):
         pass
 
     parser.set_required(["sat_server", "sat_username", "sat_password", "cloneset"])
-
 
     try:
         group = OptionGroup(parser.parser, "Show Options")

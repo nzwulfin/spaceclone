@@ -4,8 +4,8 @@ __module_desc__ = "List all clonesets"
 import sys
 from optparse import OptionGroup
 from prettytable import PrettyTable
-
 from ..satellite import Satellite, Cloneset, Clone
+
 
 def run(parser, rhn, logger):
 

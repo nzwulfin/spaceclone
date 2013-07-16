@@ -16,7 +16,7 @@ def run(parser, rhn, logger):
         # MAybe we were called from another module
         pass
 
-    parser.set_required(["sat_server", "sat_username", "sat_password", "cloneset"])
+    parser.set_required(["sat_server", "cloneset"])
 
     try:
         group = OptionGroup(parser.parser, "Show Options")
@@ -28,7 +28,7 @@ def run(parser, rhn, logger):
 
     (options, args) = parser.parse()
 
-    rhn = Satellite(options.sat_server, options.sat_username, options.sat_password)
+    rhn = Satellite(options.sat_server)
 
     chanShow = PrettyTable(["Channel", "Type", "Origin", "Base"])
     chanShow.align = "l"

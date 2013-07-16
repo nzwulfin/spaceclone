@@ -14,11 +14,11 @@ def run(parser, rhn, logger):
     group.add_option("-c", "--cloneset", action="store", type="string", dest="cloneset", help="Cloneset")
     parser.add_group(group)
 
-    parser.set_required(["sat_server", "sat_username", "sat_password", "cloneset"])
+    parser.set_required(["sat_server", "cloneset"])
 
     (options, args) = parser.parse()
 
-    rhn = Satellite(options.sat_server, options.sat_username, options.sat_password)
+    rhn = Satellite(options.sat_server)
 
     for system in rhn.get_systems(rhn.cloneset_info(options.cloneset).base.label):
         print "Systems registered to " + options.cloneset + ":"

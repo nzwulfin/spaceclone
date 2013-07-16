@@ -52,7 +52,7 @@ echo Creating source rpm
 srpm=$(rpmbuild -bs ${RPM_SPEC} | sed "s/Wrote: //")
 
 echo Building RPM in mock
-/usr/bin/mock -r default $srpm
-cp /var/lib/mock/*/result/*.rpm rpms/
-
+#/usr/bin/mock -r default $srpm
+#cp /var/lib/mock/*/result/*.rpm rpms/
+rpmbuild -ba ${RPM_SPEC}
 cleanup

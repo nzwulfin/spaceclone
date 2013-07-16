@@ -2,16 +2,41 @@ import base64
 import re
 import pickle
 import xmlrpclib
+import zlib
+import tempfile
+import getpass
+import time
 from cloneset import Cloneset
-
 
 class Satellite:
 
-    def __init__(self, server, username, password, verbose=0):
+    def __init__(self, server, verbose=0):
         self._sat = xmlrpclib.Server("http://" + server + "/rpc/api", verbose=verbose)
-        self._key = self._sat.auth.login(username, password)
         self._channels = {}
         self._clonesets = {}
+	self._key = None
+
+	# Build the cache file location based on CRC32 of server name
+	hexhash = "%08x" % zlib.crc32(server)
+	cache_file = str(tempfile.gettempdir()) + '/spc-' + str(hexhash)
+	try:
+		with open(cache_file) as cache:
+			cache_creds = cache.read()
+			cache_key, cache_time = cache_creds.split(":")
+			# If the cached key is less than 5 mins old, use it
+			if time.time() - float(cache_time) < 300:
+				self._key = cache_key
+			else:
+				print "Cached credentials too old"
+				self._key = None
+	except IOError:
+		print "No cached credentials found"
+		pass
+	if self._key is None:
+	# Prompt for user credentials
+		username = raw_input("Org Admin username: ")
+		password = getpass.getpass("Org Admin password: ")
+		self._key = self._sat.auth.login(username, password)
 
     @property
     def sat(self):

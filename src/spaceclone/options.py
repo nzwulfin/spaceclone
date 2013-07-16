@@ -1,5 +1,4 @@
 import sys
-from getpass import getpass
 from optparse import OptionParser, OptionGroup
 
 
@@ -18,17 +17,13 @@ class Parser:
     def add_group(self, optgroup):
         self.parser.add_option_group(optgroup)
 
+    def add_satellite_options(self):
+	satgroup = OptionGroup(self.parser, "Satellite Options")
+	satgroup.add_option("-s", "--server", action="store", type="string", dest="sat_server", help="Server Name")
+	self.parser.add_option_group(satgroup)
+
     def set_required(self, required):
         self.required = required
-
-    def add_satellite_options(self):
-        satgroup = OptionGroup(self.parser, "Satellite Options")
-
-        satgroup.add_option("-s", "--server", action="store", type="string", dest="sat_server", help="Server Name")
-        satgroup.add_option("-u", "--username", action="store", type="string", dest="sat_username", help="Username")
-        satgroup.add_option("-p", "--password", action="store", type="string", dest="sat_password", help="Password")
-
-        self.parser.add_option_group(satgroup)
 
     def parse(self):
         (options, args) = self.parser.parse_args(self.args)
@@ -43,11 +38,7 @@ class Parser:
             if missing:
                 for dest in missing:
                     opt = self.get_option(dest)
-
-                    if "password" in opt.help.lower():
-                        answer = getpass(opt.help + ": ")
-                    else:
-                        answer = raw_input(opt.help + ": ")
+		    answer = raw_input(opt.help + ": ")
 
                     if not answer:
                         print "Required options can not be blank"

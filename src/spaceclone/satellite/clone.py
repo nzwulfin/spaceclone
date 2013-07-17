@@ -37,7 +37,7 @@ class Clone:
         definition = {"name": self.name,
                       "label": self.label,
                       "summary": self.summary,
-		      "definition": self.pickle}
+		      "description": self.pickle}
 
         if self.parent:
             definition["parent_label"] = self.parent

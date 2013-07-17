@@ -39,6 +39,7 @@ class Parser:
                 for dest in missing:
                     opt = self.get_option(dest)
 		    answer = raw_input(opt.help + ": ")
+		    answer = answer.strip()
 
                     if not answer:
                         print "Required options can not be blank"

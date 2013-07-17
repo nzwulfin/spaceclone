@@ -18,6 +18,7 @@ class Satellite:
 	self._key = None
 
 	# Build the cache file location based on CRC32 of server name
+	active_key = None
 	hexhash = "%08x" % zlib.crc32(server)
 	cache_file = str(tempfile.gettempdir()) + '/spc-' + str(hexhash)
 	try:

@@ -35,7 +35,8 @@ def run(parser, rhn, logger):
         servers.append([system["id"], system["hostname"]])
 
     if servers == []:
-        print "No systems found."
+        print "No systems found to move."
+	sys.exit()
     else:
         table = PrettyTable(["ID", "Hostname"])
         for server in servers:

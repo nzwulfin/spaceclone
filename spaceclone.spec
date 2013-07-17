@@ -1,6 +1,6 @@
 Name:		spaceclone
 Version:	0.1
-Release:    1363998823
+Release: 1373990456
 Summary:	Tool for managing RHN Satellite Channels
 
 BuildArch:  noarch

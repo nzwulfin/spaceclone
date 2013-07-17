@@ -12,7 +12,7 @@ def run(parser, rhn, logger):
 
     parser.add_satellite_options()
 
-    parser.set_required(["sat_server", "sat_username", "sat_password", "cloneset"])
+    parser.set_required(["sat_server", "cloneset"])
 
     group = OptionGroup(parser.parser, "Move Options")
     group.add_option("-i", "--systemid", action="store", type="int", dest="systemid", help="System ID")
@@ -22,7 +22,7 @@ def run(parser, rhn, logger):
 
     (options, args) = parser.parse()
 
-    rhn = Satellite(options.sat_server, options.sat_username, options.sat_password)
+    rhn = Satellite(options.sat_server)
 
     servers = []
 

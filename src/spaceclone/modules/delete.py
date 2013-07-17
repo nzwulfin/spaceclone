@@ -12,7 +12,7 @@ def run(parser, rhn, logger):
 
     parser.add_satellite_options()
 
-    parser.set_required(["sat_server", "sat_username", "sat_password", "cloneset"])
+    parser.set_required(["sat_server", "cloneset"])
 
     group = OptionGroup(parser.parser, "Show Options")
     group.add_option("-c", "--cloneset", action="store", type="string", dest="cloneset", help="Cloneset")
@@ -20,7 +20,7 @@ def run(parser, rhn, logger):
 
     (options, args) = parser.parse()
 
-    rhn = Satellite(options.sat_server, options.sat_username, options.sat_password)
+    rhn = Satellite(options.sat_server)
 
     try:
         cloneset = rhn.cloneset_info(options.cloneset)

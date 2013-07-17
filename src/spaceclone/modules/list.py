@@ -15,7 +15,7 @@ def run(parser, rhn, logger):
 
     (options, args) = parser.parse()
 
-    rhn = Satellite(options.sat_server)
+    rhn = Satellite(options.sat_server, options.sat_username)
 
     chanList = PrettyTable(["Cloneset", "Created", "Origin", "Base", "Registered Systems"])
     chanList.align = "l"

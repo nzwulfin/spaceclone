@@ -20,6 +20,7 @@ class Parser:
     def add_satellite_options(self):
 	satgroup = OptionGroup(self.parser, "Satellite Options")
 	satgroup.add_option("-s", "--server", action="store", type="string", dest="sat_server", help="Server Name")
+	satgroup.add_option("-u", "--username", action="store", type="string", dest="sat_username", help="Username")
 	self.parser.add_option_group(satgroup)
 
     def set_required(self, required):

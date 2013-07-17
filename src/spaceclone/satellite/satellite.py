@@ -11,7 +11,7 @@ from cloneset import Cloneset
 
 class Satellite:
 
-    def __init__(self, server, verbose=0):
+    def __init__(self, server, username, verbose=0):
         self._sat = xmlrpclib.Server("http://" + server + "/rpc/api", verbose=verbose)
         self._channels = {}
         self._clonesets = {}
@@ -36,8 +36,9 @@ class Satellite:
 		pass
 	if active_key is None:
 	# Prompt for user credentials
-		username = raw_input("Org Admin username: ")
-		username = username.strip()
+		if username is None:
+			username = raw_input("Org Admin username: ")
+			username = username.strip()
 		password = getpass.getpass("Org Admin password: ")
 		active_key = self._sat.auth.login(username, password)
 

@@ -36,7 +36,8 @@ class Clone:
     def definition(self):
         definition = {"name": self.name,
                       "label": self.label,
-                      "summary": self.summary}
+                      "summary": self.summary,
+		      "definition": self.pickle}
 
         if self.parent:
             definition["parent_label"] = self.parent
@@ -50,13 +51,12 @@ class Clone:
 
     def create(self, rhn):
         self.chanid = rhn.sat.channel.software.clone(rhn.key, self.source, self.definition, False)
-        rhn.sat.channel.software.setDetails(rhn.key, self.chanid, {"description": self.pickle})
         return self.chanid
 
-    def delete(self, satellite):
-        satellite.sat.channel.software.delete(satellite.key, self.label)
+    def delete(self, rhn):
+        rhn.sat.channel.software.delete(rhn.key, self.label)
 
-    def promote(self, satellite):
+    def promote(self, rhn):
         pass
 
 if __name__ == "__main__":

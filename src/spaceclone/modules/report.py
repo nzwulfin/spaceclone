@@ -18,7 +18,7 @@ def run(parser, rhn, logger):
 
     (options, args) = parser.parse()
 
-    rhn = Satellite(options.sat_server)
+    rhn = Satellite(options.sat_server, options.sat_username)
 
     for system in rhn.get_systems(rhn.cloneset_info(options.cloneset).base.label):
         print "Systems registered to " + options.cloneset + ":"

@@ -37,6 +37,7 @@ class Satellite:
 	if active_key is None:
 	# Prompt for user credentials
 		username = raw_input("Org Admin username: ")
+		username = username.strip()
 		password = getpass.getpass("Org Admin password: ")
 		active_key = self._sat.auth.login(username, password)
 
